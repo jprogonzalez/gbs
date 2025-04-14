@@ -16,8 +16,8 @@ Asegúrate de tener instalado lo siguiente:
 1. Clona el repositorio:
 
     ```bash
-    git clone https://github.com/tu_usuario/tu_proyecto.git
-    cd tu_proyecto
+    git clone https://github.com/jprogonzalez/gbs.git
+    cd gbs
     ```
 
 2. Instala las dependencias de PHP:
