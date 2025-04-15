@@ -14,11 +14,11 @@ use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
-    use HasApiTokens,
-        HasFactory, 
-        Notifiable,
-        HasUuid,
-        SearchPattern;
+    use HasApiTokens;
+    use HasFactory;
+    use Notifiable;
+    use HasUuid;
+    use SearchPattern;
 
     /**
      * The attributes that are mass assignable.
@@ -60,7 +60,7 @@ class User extends Authenticatable
 
     public function role()
     {
-        return $this->belongsTo(Role::class,'role_id');
+        return $this->belongsTo(Role::class, 'role_id');
     }
 
     public function scopeRole($query, $value)
@@ -69,15 +69,13 @@ class User extends Authenticatable
             return $query;
         }
 
-        $rolesUuids = Str::of($value)->explode(',');
+        $rolesIds = Str::of($value)->explode(',');
 
-        $roles = Role::whereIn('uuid', $rolesUuids)
+        $roles = Role::whereIn('id', $rolesIds)
             ->get()
             ->pluck('id')
             ->toArray();
 
-        $query->whereIn('role_id',$roles);
-
+        $query->whereIn('role_id', $roles);
     }
-
 }

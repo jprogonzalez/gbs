@@ -57,5 +57,4 @@ class UserStoreRequest extends FormRequest
             'role_id.exists' => 'El rol seleccionado no es válido.',
         ];
     }
-
 }

@@ -43,7 +43,7 @@ class ApiController extends Controller
 
         return response()->json($response, $statusCode);
     }
-    
+
     public function responseWithMessage($message, $messageParams = [], $statusCode = 200)
     {
         return $this->responseWithData(null, $message, $messageParams, $statusCode);
@@ -72,5 +72,3 @@ class ApiController extends Controller
         return response()->json($response, $statusCode);
     }
 }
-
-

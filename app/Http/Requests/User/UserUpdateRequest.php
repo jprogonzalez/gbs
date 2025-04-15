@@ -30,7 +30,7 @@ class UserUpdateRequest extends FormRequest
                 'string',
                 'email',
                 'max:255',
-                Rule::unique('users')->ignore($this->user,'uuid'),
+                Rule::unique('users')->ignore($this->user, 'uuid'),
             ],
             'role_id' => 'required|exists:roles,id',
             'metadata' => 'nullable'

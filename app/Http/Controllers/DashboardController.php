@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\DB;
 
 class DashboardController extends ApiController
 {
-    
     public function summary()
     {
         $totalUsers = DB::table('users')->count();
@@ -23,5 +22,4 @@ class DashboardController extends ApiController
             'users_by_role' => $usersByRole,
         ], 'dashboard.summary');
     }
-
 }

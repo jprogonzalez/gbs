@@ -12,15 +12,16 @@ class AuthController extends ApiController
     public function auth(Request $request)
     {
         $user = User::query()
-            ->where('email',$request->email)
+            ->where('email', $request->email)
+            ->whereStatus(true)
             ->first();
 
         if (!$user) {
-            return $this->responseWithErrorMessage('auth.failed',[],401);
+            return $this->responseWithErrorMessage('auth.failed', [], 401);
         }
 
-        if (!Hash::check($request->password,$user->password)) {
-            return $this->responseWithErrorMessage('auth.failed',[],401);
+        if (!Hash::check($request->password, $user->password)) {
+            return $this->responseWithErrorMessage('auth.failed', [], 401);
         }
 
         $user->load(['role:id,uuid,name,key']);

@@ -10,11 +10,9 @@ use Illuminate\Http\Request;
 
 class UserController extends ApiController
 {
-    
     public function index()
     {
         try {
-            
             $usersQuery = User::query();
 
             $usersQuery->select([
@@ -37,14 +35,13 @@ class UserController extends ApiController
             ]);
 
             $usersQuery->role(request()->role);
-            
+
             $usersQuery->orderBy('created_at', 'desc');
 
             $users = $usersQuery->paginate(request()->per_page);
 
             return $this->responseWithResource(UserResource::collection($users), 'users.index');
-
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             return $this->responseWithError($e, 'users.index');
         }
     }
@@ -52,16 +49,14 @@ class UserController extends ApiController
     public function store(UserStoreRequest $request)
     {
         try {
-
             $validatedData = $request->validated();
 
             $user = User::create($validatedData);
 
             $user->load(['role:id,uuid,name,key']);
 
-            return $this->responseWithResource(new UserResource($user),'users.store');
-
-        }catch(\Exception $e){
+            return $this->responseWithResource(new UserResource($user), 'users.store');
+        } catch (\Exception $e) {
             return $this->responseWithError($e, 'users.store');
         }
     }
@@ -69,7 +64,6 @@ class UserController extends ApiController
     public function show($uuid)
     {
         try {
-
             $user = User::query()
                 ->select([
                     'id',
@@ -87,8 +81,7 @@ class UserController extends ApiController
                 ->firstOrFail();
 
             return $this->responseWithResource(new UserResource($user), 'users.show');
-
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             return $this->responseWithError($e, 'users.show');
         }
     }
@@ -96,7 +89,6 @@ class UserController extends ApiController
     public function update(UserUpdateRequest $request, $uuid)
     {
         try {
-
             $user = User::query()
                 ->where('uuid', $uuid)
                 ->firstOrFail();
@@ -106,8 +98,7 @@ class UserController extends ApiController
             $user->load(['role:id,uuid,name,key']);
 
             return $this->responseWithResource(new UserResource($user), 'users.update');
-
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             return $this->responseWithError($e, 'users.update');
         }
     }
@@ -115,7 +106,6 @@ class UserController extends ApiController
     public function updateStatus(Request $request, $userUuid)
     {
         try {
-
             $user = User::query()
                 ->select([
                     'id',
@@ -136,16 +126,14 @@ class UserController extends ApiController
             $user->load(['role:id,uuid,name,key']);
 
             return $this->responseWithResource(new UserResource($user), 'users.update');
-
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             return $this->responseWithError($e, 'users.update');
         }
     }
-    
+
     public function destroy($id)
     {
         try {
-
             $user = User::query()
                 ->where('uuid', $id)
                 ->firstOrFail();
@@ -153,10 +141,8 @@ class UserController extends ApiController
             $user->delete();
 
             return $this->responseWithMessage('users.destroy');
-
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             return $this->responseWithError($e, 'users.destroy');
         }
     }
-
 }

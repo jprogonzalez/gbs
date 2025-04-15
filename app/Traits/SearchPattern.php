@@ -1,19 +1,19 @@
-<?php 
+<?php
 
 namespace App\Traits;
 
 use Carbon\Carbon;
 
-trait SearchPattern 
+trait SearchPattern
 {
-    public function scopeSearchPattern($query,$value, array $fields = []) 
+    public function scopeSearchPattern($query, $value, array $fields = [])
     {
-        foreach($fields as $index => $field) {
+        foreach ($fields as $index => $field) {
             if ($index == 0) {
-                $query->where($field,'like',"%{$value}%");
-            }else{
-                $query->orWhere($field,'like',"%{$value}%");
-            }   
+                $query->where($field, 'like', "%{$value}%");
+            } else {
+                $query->orWhere($field, 'like', "%{$value}%");
+            }
         }
     }
 }
